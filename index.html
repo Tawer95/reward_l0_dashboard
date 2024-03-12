@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Reward Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .slider-container {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <label for="wallets">Wallets: </label>
+        <input type="range" id="wallets" min="200000" max="3000000" step="100000" value="1000000" oninput="updateReward()">
+        <span id="wallets-value">1000000</span>
+    </div>
+    <div class="slider-container">
+        <label for="drop">Drop %: </label>
+        <input type="range" id="drop" min="3" max="15" step="1" value="6" oninput="updateReward()">
+        <span id="drop-value">6</span>%
+    </div>
+    <div class="slider-container">
+        <label for="fdv">FDV (B$): </label>
+        <input type="range" id="fdv" min="10" max="50" step="1" value="30" oninput="updateReward()">
+        <span id="fdv-value">30</span>
+    </div>
+    <div class="slider-container">
+        <label for="reward">Reward per Wallet: $</label>
+        <input type="text" id="reward" value="0" disabled>
+    </div>
+
+    <script>
+        function calculateReward(wallets, dropPercentage, fdv) {
+            return (dropPercentage / 100) * (fdv * 1e9) / wallets;
+        }
+
+        function updateReward() {
+            var wallets = document.getElementById('wallets').value;
+            var dropPercentage = document.getElementById('drop').value;
+            var fdv = document.getElementById('fdv').value;
+
+            // Обновляем текст рядом с ползунками
+            document.getElementById('wallets-value').textContent = wallets;
+            document.getElementById('drop-value').textContent = dropPercentage;
+            document.getElementById('fdv-value').textContent = fdv;
+
+            // Вычисляем и отображаем награду
+            var reward = calculateReward(wallets, dropPercentage, fdv);
+            document.getElementById('reward').value = reward.toFixed(2);
+        }
+
+        // Инициализируем при загрузке
+        document.addEventListener('DOMContentLoaded', updateReward);
+    </script>
+</body>
+</html>
