@@ -20,6 +20,11 @@
     </style>
 </head>
 <body>
+    <img src="img.png" alt="Seal illustration">
+    <div class="creator-info">
+        Created by Tawer95 - <a href="https://t.me/tawer_crypt" target="_blank">https://t.me/tawer_crypt</a>
+    </div>
+    <div class="slider-container">
     <div class="slider-container">
         <label for="wallets">Wallets: </label>
         <input type="range" id="wallets" min="200000" max="3000000" step="100000" value="1000000" oninput="updateReward()">
@@ -39,6 +44,7 @@
         <label for="reward">Reward per Wallet: $</label>
         <input type="text" id="reward" value="0" disabled>
     </div>
+
 
     <script>
         function calculateReward(wallets, dropPercentage, fdv) {
